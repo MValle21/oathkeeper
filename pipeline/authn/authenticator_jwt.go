@@ -14,6 +14,9 @@ import (
 	"github.com/ory/oathkeeper/driver/configuration"
 	"github.com/ory/oathkeeper/helper"
 	"github.com/ory/oathkeeper/pipeline"
+	"github.com/ory/oathkeeper/x"
+
+	"github.com/ory/x/logrusx"
 )
 
 type AuthenticatorJWTRegistry interface {
@@ -31,8 +34,9 @@ type AuthenticatorOAuth2JWTConfiguration struct {
 }
 
 type AuthenticatorJWT struct {
-	c configuration.Provider
-	r AuthenticatorJWTRegistry
+	c      configuration.Provider
+	r      AuthenticatorJWTRegistry
+	logger *logrusx.Logger
 }
 
 func NewAuthenticatorJWT(
@@ -40,8 +44,9 @@ func NewAuthenticatorJWT(
 	r AuthenticatorJWTRegistry,
 ) *AuthenticatorJWT {
 	return &AuthenticatorJWT{
-		c: c,
-		r: r,
+		c:      c,
+		r:      r,
+		logger: logrusx.New("ORY Oathkeeper", x.Version),
 	}
 }
 
@@ -68,6 +73,17 @@ func (a *AuthenticatorJWT) Config(config json.RawMessage) (*AuthenticatorOAuth2J
 }
 
 func (a *AuthenticatorJWT) Authenticate(r *http.Request, session *AuthenticationSession, config json.RawMessage, _ pipeline.Rule) error {
+	a.logger.Info("Authenticating request!!!")
+	err := a.AuthenticateInternal(r, session, config, nil)
+	if err != nil {
+		a.logger.WithError(err).Error("Error authenticating jwt")
+		return errors.WithStack(ErrAuthenticatorNotResponsible)
+	}
+
+	return nil
+}
+
+func (a *AuthenticatorJWT) AuthenticateInternal(r *http.Request, session *AuthenticationSession, config json.RawMessage, _ pipeline.Rule) error {
 	cf, err := a.Config(config)
 	if err != nil {
 		return err
