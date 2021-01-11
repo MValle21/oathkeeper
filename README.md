@@ -88,7 +88,7 @@ been able to achieve this without each and everyone of you!
 The following list represents companies that have accompanied us along the way
 and that have made outstanding contributions to our ecosystem. _If you think
 that your company deserves a spot here, reach out to
-<a href="mailto:hi@ory.sh">hi@ory.sh</a> now_!
+<a href="mailto:office@ory.sh">office@ory.sh</a> now_!
 
 **Please consider giving back by becoming a sponsor of our open source work on
 <a href="https://www.patreon.com/_ory">Patreon</a> or
@@ -159,6 +159,12 @@ that your company deserves a spot here, reach out to
             <td><a href="https://www.arduino.cc/">arduino.cc</a></td>
         </tr>
         <tr>
+            <td>Adopter *</td>
+            <td>DataDetect</td>
+            <td align="center"><img height="32px" src="https://raw.githubusercontent.com/ory/meta/master/static/adopters/datadetect.svg" alt="Datadetect"></td>
+            <td><a href="https://unifiedglobalarchiving.com/data-detect/">unifiedglobalarchiving.com/data-detect/</a></td>
+        </tr>
+        <tr>
             <td>Sponsor</td>
             <td>OrderMyGear</td>
             <td align="center"><img height="32px" src="https://raw.githubusercontent.com/ory/meta/master/static/adopters/ordermygear.svg" alt="OrderMyGear"></td>
@@ -189,6 +195,9 @@ TheCrealm.
 <em>\* Uses one of ORY's major projects in production.</em>
 
 <!--END ADOPTERS-->
+
+
+
 
 
 
@@ -253,6 +262,9 @@ determine whether a subject (user, application, service, car, ...) is authorized
 to perform a certain action on a resource.
 
 <!--END ECOSYSTEM-->
+
+
+
 
 
 

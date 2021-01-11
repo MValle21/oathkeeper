@@ -80,6 +80,11 @@ func (r *RegistryMemory) RuleFetcher() rule.Fetcher {
 	return r.ruleFetcher
 }
 
+func (r *RegistryMemory) WithRuleFetcher(fetcher rule.Fetcher) Registry {
+	r.ruleFetcher = fetcher
+	return r
+}
+
 func (r *RegistryMemory) ProxyRequestHandler() *proxy.RequestHandler {
 	if r.proxyRequestHandler == nil {
 		r.proxyRequestHandler = proxy.NewRequestHandler(r, r.c)
@@ -343,6 +348,7 @@ func (r *RegistryMemory) prepareAuthn() {
 		interim := []authn.Authenticator{
 			authn.NewAuthenticatorAnonymous(r.c),
 			authn.NewAuthenticatorCookieSession(r.c),
+			authn.NewAuthenticatorBearerToken(r.c),
 			authn.NewAuthenticatorJWT(r.c, r),
 			authn.NewAuthenticatorNoOp(r.c),
 			authn.NewAuthenticatorOAuth2ClientCredentials(r.c),
