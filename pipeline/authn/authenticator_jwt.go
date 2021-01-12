@@ -73,7 +73,6 @@ func (a *AuthenticatorJWT) Config(config json.RawMessage) (*AuthenticatorOAuth2J
 }
 
 func (a *AuthenticatorJWT) Authenticate(r *http.Request, session *AuthenticationSession, config json.RawMessage, _ pipeline.Rule) error {
-	a.logger.Info("Authenticating request!!!")
 	err := a.AuthenticateInternal(r, session, config, nil)
 	if err != nil {
 		a.logger.WithError(err).Error("Error authenticating jwt")
